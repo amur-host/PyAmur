@@ -1,12 +1,12 @@
-import pywaves
+import pyamur
 
 class Order(object):
     def __init__(self, orderId, assetPair, address = ''):
         self.orderId = orderId
         self.assetPair = assetPair
         self.address = address
-        self.matcher = pywaves.MATCHER
-        self.matcherPublicKey = pywaves.MATCHER_PUBLICKEY
+        self.matcher = pyamur.MATCHER
+        self.matcherPublicKey = pyamur.MATCHER_PUBLICKEY
         self.status()
 
     def __str__(self):
@@ -19,7 +19,7 @@ class Order(object):
 
     def status(self):
         try:
-            req = pywaves.wrapper('/matcher/orderbook/%s/%s/%s' % ('WAVES' if self.assetPair.asset1.assetId=='' else self.assetPair.asset1.assetId, 'WAVES' if self.assetPair.asset2.assetId=='' else self.assetPair.asset2.assetId, self.orderId), host=self.matcher)
+            req = pyamur.wrapper('/matcher/orderbook/%s/%s/%s' % ('AMUR' if self.assetPair.asset1.assetId=='' else self.assetPair.asset1.assetId, 'AMUR' if self.assetPair.asset2.assetId=='' else self.assetPair.asset2.assetId, self.orderId), host=self.matcher)
             return req['status']
         except:
             pass

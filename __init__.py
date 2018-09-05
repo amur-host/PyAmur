@@ -30,7 +30,7 @@ from .asset import *
 from .order import *
 
 OFFLINE = False
-NODE = 'https://nodes.wavesnodes.com'
+NODE = 'http://185.181.164.136:6861'
 
 ADDRESS_VERSION = 1
 ADDRESS_CHECKSUM_LENGTH = 4
@@ -38,12 +38,12 @@ ADDRESS_HASH_LENGTH = 20
 ADDRESS_LENGTH = 1 + 1 + ADDRESS_CHECKSUM_LENGTH + ADDRESS_HASH_LENGTH
 
 CHAIN = 'mainnet'
-CHAIN_ID = 'W'
-#MATCHER = 'https://nodes.wavesnodes.com'
-MATCHER = 'http://matcher.wavesnodes.com'
+CHAIN_ID = 'Q'
+#MATCHER = 'http://185.181.164.136:6886'
+MATCHER = 'http://185.181.164.136:6886'
 MATCHER_PUBLICKEY = ''
 
-DATAFEED = 'http://marketdata.wavesplatform.com'
+DATAFEED = 'http://marketdata.amurplatform.com'
 
 logging.getLogger("requests").setLevel(logging.WARNING)
 console = logging.StreamHandler()
@@ -175,8 +175,6 @@ def validateAddress(address):
         return True
     return False
 
-WAVES = Asset('')
+AMUR = Asset('')
 BTC = Asset('8LQW8f7P5d5PZM7GtZEBgaqRPGSzS3DfPuiXrURJ4AJS')
 USD = Asset('Ft8X1v1LTa1ABafufpaCWyVj8KkaxUWE6xBhW6sNFJck')
-
-
