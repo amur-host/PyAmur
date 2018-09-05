@@ -1,6 +1,6 @@
-# Copyright (C) 2017 PyWaves Developers
+# Copyright (C) 2017 PyAmur Developers
 #
-# This file is part of PyWaves.
+# This file is part of PyAmur.
 #
 # It is subject to the license terms in the LICENSE file found in the top-level
 # directory of this distribution.
@@ -11,11 +11,11 @@
 
 from __future__ import absolute_import, division, print_function, unicode_literals
 
-DEFAULT_TX_FEE = 100000
-DEFAULT_ASSET_FEE = 100000000
-DEFAULT_MATCHER_FEE = 300000
-DEFAULT_LEASE_FEE = 100000
-DEFAULT_ALIAS_FEE = 100000
+DEFAULT_TX_FEE = 10000
+DEFAULT_ASSET_FEE = 100000000000
+DEFAULT_MATCHER_FEE = 50000
+DEFAULT_LEASE_FEE = 10000
+DEFAULT_ALIAS_FEE = 10000
 DEFAULT_SPONSOR_FEE = 100000000
 DEFAULT_SCRIPT_FEE = 100000
 VALID_TIMEFRAMES = (5, 15, 30, 60, 240, 1440)
@@ -53,13 +53,13 @@ console.setFormatter(formatter)
 logging.getLogger('').addHandler(console)
 
 
-class PyWavesException(ValueError):
+class PyAmurException(ValueError):
     pass
 
 
 def throw_error(msg):
     if THROW_EXCEPTION_ON_ERROR:
-        raise PyWavesException(msg)
+        raise PyAmurException(msg)
 
 
 def setThrowOnError(throw=True):
@@ -84,7 +84,7 @@ def setChain(chain = CHAIN, chain_id = None):
     else:
         if chain.lower()=='mainnet' or chain.lower()=='w':
             CHAIN = 'mainnet'
-            CHAIN_ID = 'W'
+            CHAIN_ID = 'Q'
         elif chain.lower()=='hacknet' or chain.lower()=='u':
             CHAIN = 'hacknet'
             CHAIN_ID = 'U'

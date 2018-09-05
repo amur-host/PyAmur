@@ -1,15 +1,15 @@
-# PyWaves
-PyWaves is an object-oriented Python interface to the Waves blockchain platform.
+# PyAmur
+PyAmur is an object-oriented Python interface to the Amur blockchain platform.
 
 ## Getting Started
 
-You can install PyWaves using:
+You can install PyAmur using:
 
     pip install pyamur
 
 ## Documentation
 
-The library utilizes classes to represent various Waves data structures:
+The library utilizes classes to represent various Amur data structures:
 
 - pyamur.Address
 - pyamur.Asset
@@ -22,7 +22,7 @@ import pyamur as pw
 
 myAddress = pw.Address(privateKey='CtMQWJZqfc7PRzSWiMKaGmWFm4q2VN5fMcYyKDBPDx6S')
 otherAddress = pw.Address('3PNTcNiUzppQXDL9RZrK3BcftbujiFqrAfM')
-myAddress.sendWaves(otherAddress, 10000000)
+myAddress.sendAmur(otherAddress, 10000000)
 myToken = myAddress.issueAsset('Token1', 'My Token', 1000, 0)
 while not myToken.status():
 	pass
@@ -41,7 +41,7 @@ __pyamur.Address(address, publicKey, privateKey, seed)__ _Creates a new Address 
 
 #### methods:
 
-`balance(assetId='', confirmations=0)` returns balance of Waves or other assets
+`balance(assetId='', confirmations=0)` returns balance of Amur or other assets
 
 `assets()` returns a list of assets owned by the address
 
@@ -51,13 +51,13 @@ __pyamur.Address(address, publicKey, privateKey, seed)__ _Creates a new Address 
 
 `burnAsset(Asset, quantity, txFee=DEFAULT_ASSET_FEE, timestamp=0)` burn the specified quantity of an asset
 
-`sendWaves(recipient, amount, attachment='', txFee=DEFAULT_TX_FEE, timestamp=0)` send specified amount of Waves to recipient
+`sendAmur(recipient, amount, attachment='', txFee=DEFAULT_TX_FEE, timestamp=0)` send specified amount of Amur to recipient
 
-`massTransferWaves(transfers, attachment='', timestamp=0)` sending Waves tokens via a mass transfer
+`massTransferAmur(transfers, attachment='', timestamp=0)` sending Amur tokens via a mass transfer
 
 `sendAsset(recipient, asset, amount, attachment='', txFee=DEFAULT_TX_FEE, timestamp=0)` send specified amount of an asset to recipient
 
-`massTransferWaves(self, transfers, attachment='', timestamp=0)` sending an asset via mass transfer
+`massTransferAmur(self, transfers, attachment='', timestamp=0)` sending an asset via mass transfer
 
 `cancelOrder(assetPair, order)` cancel an order
 
@@ -163,7 +163,7 @@ __pyamur.Order(orderId, assetPair, address='')__ Creates a new Order object
 
 `pyamur.setOnline()`  switch to online mode; sign tx locally a broadcast to network
 
-`pyamur.validateAddress(address)`  checks if the provided address is a valid Waves address
+`pyamur.validateAddress(address)`  checks if the provided address is a valid Amur address
 
 `pyamur.setMatcher(node)`  set matcher URL ('http://ip-address:port')
 
@@ -226,24 +226,24 @@ import pyamur as pw
 
 myAddress = pw.Address('3P6WfA4qYtkgwVAsWiiB6yaea2X8zyXncJh')
 
-# get Waves balance
+# get Amur balance
 print("Your balance is %18d" % myAddress.balance())
 
-# get Waves balance after 20 confirmations
+# get Amur balance after 20 confirmations
 print("Your balance is %18d" % myAddress.balance(confirmations = 20))
 
 # get an asset balance
 print("Your asset balance is %18d" % myAddress.balance('DHgwrRvVyqJsepd32YbBqUeDH4GJ1N984X8QoekjgH8J'))
 ```
 
-#### Waves and asset transfers:
+#### Amur and asset transfers:
 ```python
 import pyamur as pw
 
 myAddress = pw.Address(privateKey='CtMQWJZqfc7PRzSWiMKaGmWFm4q2VN5fMcYyKDBPDx6S')
 
-# send Waves to another address
-myAddress.sendWaves(recipient = pw.Address('3PNTcNiUzppQXDL9RZrK3BcftbujiFqrAfM'),
+# send Amur to another address
+myAddress.sendAmur(recipient = pw.Address('3PNTcNiUzppQXDL9RZrK3BcftbujiFqrAfM'),
                     amount = 100000000)
 
 # send asset to another address
@@ -286,10 +286,10 @@ recipients =   ['3PBbp6bg2YEnHfdJtYM7jzzXYQeb7sx5oFg',
 myAddress = pw.Address(privateKey = "CtMQWJZqfc7PRzSWiMKaGmWFm4q2VN5fMcYyKDBPDx6S")
 
 for address in recipients:
-	myAddress.sendWaves(pw.Address(address), 1000000)
+	myAddress.sendAmur(pw.Address(address), 1000000)
 ```
 
-#### Mass transfer of Waves (feature 11)
+#### Mass transfer of Amur (feature 11)
 ```python
 import pyamur as pw
 
@@ -300,7 +300,7 @@ transfers = [
 ]
 
 address = pw.Address(privateKey = "CtMQWJZqfc7PRzSWiMKaGmWFm4q2VN5fMcYyKDBPDx6S")
-address.massTransferWaves(transfers)
+address.massTransferAmur(transfers)
 ```
 
 #### Mass transfer of Assets (feature 11)
@@ -331,7 +331,7 @@ for address in lines:
 	myAddress.sendAsset(pw.Address(address.strip()), myToken, amount)
 ```
 
-#### Playing with Waves Matcher node (DEX):
+#### Playing with Amur Matcher node (DEX):
 ```python
 import pyamur as pw
 
@@ -350,7 +350,7 @@ Incent = pw.Asset('FLbGXzrpqkvucZqsHDcNxePTkh2ChmEi4GdBfDRRJVof')
 WCT_Incent = pw.AssetPair(WCT, Incent)
 myOrder = myAddress.sell(assetPair = WCT_Incent, amount = 100e8, price = 25e8)
 
-# post a buy order using Waves as price asset
+# post a buy order using Amur as price asset
 BTC = pw.Asset('4ZzED8WJXsvuo2MEm2BmZ87Azw8Sx7TVC6ufSUA5LyTV')
 BTC_AMUR = pw.AssetPair(BTC, pw.AMUR)
 myOrder = myAddress.buy(assetPair = BTC_AMUR, amount = 1e8, price = 50e8)
@@ -362,7 +362,7 @@ myAddress.cancelOrder(assetPair, myOrder)
 
 ```
 
-#### Getting Market Data from Waves Data Feed (WDF):
+#### Getting Market Data from Amur Data Feed (WDF):
 ```python
 import pyamur as pw
 
@@ -398,7 +398,7 @@ pw.setNode(node = 'http://127.0.0.1:6869', chain = 'testnet')
 myAddress = pw.Address(privateKey = 'CsBpQpNE3Z1THNMS9vJPaXqYwN9Hgmhd9AsAPrM3tiuJ')
 minerAddress = pw.Address('3NBThmVJmcexzJ9itP9KiiC2K6qnGQwpqMq')
 
-# lease 1000 Waves to minerAddress
+# lease 1000 Amur to minerAddress
 leaseId = myAddress.lease(minerAddress, 100000000000)
 
 # revoke the lease
@@ -407,7 +407,7 @@ myAddress.leaseCancel(leaseId)
 ```
 
 
-### Using PyWaves in a Python shell
+### Using PyAmur in a Python shell
 
 #### Check an address balance:
 ```
@@ -418,11 +418,11 @@ publicKey =
 privateKey =
 seed =
 balances:
-  Waves = 1186077288304570
+  Amur = 1186077288304570
   BDMRyZsmDZpgKhdM7fUTknKcUbVVkDpMcqEj31PUzjMy (Tokes) = 43570656915
   RRBqh2XxcwAdLYEdSickM589Vb4RCemBCPH5mJaWhU9 (Ripto Bux) = 4938300000000
   4rmhfoscYcjz1imNDvtz45doouvrQqDpbX7xdfLB4guF (incentCoffee) = 7
-  Ftim86CXM6hANxArJXZs2Fq7XLs3nJvgBzzEwQWwQn6N (Waves) = 2117290600000000
+  Ftim86CXM6hANxArJXZs2Fq7XLs3nJvgBzzEwQWwQn6N (Amur) = 2117290600000000
   E4ip4jzTc4PCvebYn1818T4LNoYBVL3Y4Y4dMPatGwa9 (BitCoin) = 500000000000
   FLbGXzrpqkvucZqsHDcNxePTkh2ChmEi4GdBfDRRJVof (Incent) = 12302659925430
   GQr2fpkfmWjMaZCbqMxefbiwgvpcNgYdev7xpuX6xqcE (KISS) = 1000
@@ -440,7 +440,7 @@ publicKey = EYNuSmW4Adtcc6AMCZyxkiHMPmF2BZ2XxvjpBip3UFZL
 privateKey = CtMQWJZqfc7PRzSWiMKaGmWFm4q2VN5fMcYyKDBPDx6S
 seed = seven wrist bargain hope pattern banner plastic maple student chaos grit next space visa answer
 balances:
-  Waves = 0
+  Amur = 0
 >>>
 ```
 
@@ -451,8 +451,8 @@ balances:
 status = Issued
 assetId = DHgwrRvVyqJsepd32YbBqUeDH4GJ1N984X8QoekjgH8J
 issuer = 3PPKF2pH4KMYgsDixjrhnWrPycVHr1Ye37V
-name = WavesCommunity
-description = Waves community token.
+name = AmurCommunity
+description = Amur community token.
 quantity = 1000000000
 decimals = 2
 reissuable = False
@@ -494,7 +494,7 @@ matcher = http://127.0.0.1:6886
 >>> recipient=pw.Address("3P8Ya6Ary5gzwnzbBXDp3xjeNG97JEiPcdA")
 # sign a future tx to transfer 100 AMUR to recipient
 # the tx is valid on Jan 1st, 2020 12:00pm
->>> myAddress.sendWaves(recipient, amount=100e8, timestamp=1577880000000)
+>>> myAddress.sendAmur(recipient, amount=100e8, timestamp=1577880000000)
 {'api-endpoint': '/assets/broadcast/transfer',
  'api-type': 'POST',
  'api-data': '{"fee": 100000,
@@ -514,7 +514,7 @@ matcher = http://127.0.0.1:6886
 # generate a lockbox address
 >>> lockAddress=pw.Address()
 # sign the 'lock' tx to send 100e8 to the lockbox (valid on Nov 1st, 2017)
->>> myAddress.sendWaves(lockAddress, 100e8, timestamp=1509537600000)
+>>> myAddress.sendAmur(lockAddress, 100e8, timestamp=1509537600000)
 {'api-endpoint': '/assets/broadcast/transfer',
  'api-type': 'POST',
  'api-data': '{"fee": 100000,
@@ -525,7 +525,7 @@ matcher = http://127.0.0.1:6886
                "recipient": "3P3UbyQM9W7WzTgjYkLuBrPZZeWsiUtCcpv",
                "signature": "5VgT6qWxJwxEyrxFNfsi67QqbyUiGq9Ka7HVzgovRTTDT8nLRyuQv2wBAJQhRiXDkTTV6zsQmHnBkh8keCaFPoNT"}'}
 # sign the 'unlock' tx to send funds back to myAddress (valid on Jan 1st, 2020)
->>> lockAddress.sendWaves(myAddress, 100e8-200000, txFee=200000, timestamp=1577880000000)
+>>> lockAddress.sendAmur(myAddress, 100e8-200000, txFee=200000, timestamp=1577880000000)
 {'api-endpoint': '/assets/broadcast/transfer',
  'api-type': 'POST',
  'api-data': '{"fee": 200000,
@@ -541,7 +541,7 @@ matcher = http://127.0.0.1:6886
 
 ## Connecting to a different node or chain
 
-PyWaves supports both mainnet and testnet chains. By default, PyWaves connects to the mainnet RPC server at https://nodes.amur.host. It's possible to specify a different server and chain with the setNode() function
+PyAmur supports both mainnet and testnet chains. By default, PyAmur connects to the mainnet RPC server at https://nodes.amur.host. It's possible to specify a different server and chain with the setNode() function
 
 ```python
 import pyamur as pw
@@ -556,4 +556,4 @@ pw.setNode(node = 'http://127.0.0.1:6869', chain = 'mainnet')
 
 
 ## License
-Code released under the [MIT License](https://github.com/PyWaves/PyWaves/blob/master/LICENSE).
+Code released under the [MIT License](https://github.com/PyAmur/PyAmur/blob/master/LICENSE).

@@ -237,7 +237,7 @@ class Address(object):
                         ab.append("  %s (%s) = %d" % (a['assetId'], a['issueTransaction']['name'].encode('ascii', 'ignore'), a['balance']))
             except:
                 pass
-            return 'address = %s\npublicKey = %s\nprivateKey = %s\nseed = %s\nnonce = %d\nbalances:\n  Waves = %d%s' % (self.address, self.publicKey, self.privateKey, self.seed, self.nonce, self.balance(), '\n'+'\n'.join(ab) if ab else '')
+            return 'address = %s\npublicKey = %s\nprivateKey = %s\nseed = %s\nnonce = %d\nbalances:\n  Amur = %d%s' % (self.address, self.publicKey, self.privateKey, self.seed, self.nonce, self.balance(), '\n'+'\n'.join(ab) if ab else '')
 
     __repr__ = __str__
 
@@ -384,7 +384,7 @@ class Address(object):
         else:
             return req.get('id', 'ERROR')
 
-    def sendWaves(self, recipient, amount, attachment='', txFee=pyamur.DEFAULT_TX_FEE, timestamp=0):
+    def sendAmur(self, recipient, amount, attachment='', txFee=pyamur.DEFAULT_TX_FEE, timestamp=0):
         if not self.privateKey:
             msg = 'Private key required'
             logging.error(msg)
@@ -395,7 +395,7 @@ class Address(object):
             logging.error(msg)
             pyamur.throw_error(msg)
         elif not pyamur.OFFLINE and self.balance() < amount + txFee:
-            msg = 'Insufficient Waves balance'
+            msg = 'Insufficient Amur balance'
             logging.error(msg)
             pyamur.throw_error(msg)
 
@@ -424,7 +424,7 @@ class Address(object):
 
             return pyamur.wrapper('/assets/broadcast/transfer', data)
 
-    def massTransferWaves(self, transfers, attachment='', timestamp=0):
+    def massTransferAmur(self, transfers, attachment='', timestamp=0):
         txFee = 100000 + (math.ceil((len(transfers) + 1) / 2 - 0.5)) * 100000
         totalAmount = 0
 
@@ -440,7 +440,7 @@ class Address(object):
             logging.error(msg)
             pyamur.throw_error(msg)
         elif not pyamur.OFFLINE and self.balance() < totalAmount + txFee:
-            msg = 'Insufficient Waves balance'
+            msg = 'Insufficient Amur balance'
             logging.error(msg)
             pyamur.throw_error(msg)
         else:
@@ -497,11 +497,11 @@ class Address(object):
             logging.error(msg)
             pyamur.throw_error(msg)
         elif not pyamur.OFFLINE and not asset and self.balance() < amount:
-            msg = 'Insufficient Waves balance'
+            msg = 'Insufficient Amur balance'
             logging.error(msg)
             pyamur.throw_error(msg)
         elif not pyamur.OFFLINE and not feeAsset and self.balance() < txFee:
-            msg = 'Insufficient Waves balance'
+            msg = 'Insufficient Amur balance'
             logging.error(msg)
             pyamur.throw_error(msg)
         elif not pyamur.OFFLINE and feeAsset and self.balance(feeAsset.assetId) < txFee:
@@ -546,7 +546,7 @@ class Address(object):
         elif len(transfers) > 100:
             logging.error('Too many recipients')
         elif not pyamur.OFFLINE and self.balance() < txFee:
-            logging.error('Insufficient Waves balance')
+            logging.error('Insufficient Amur balance')
         elif not pyamur.OFFLINE and self.balance(assetId=asset.assetId) < totalAmount:
             logging.error('Insufficient %s balance' % asset.name)
         else:
@@ -783,7 +783,7 @@ class Address(object):
             logging.error(msg)
             pyamur.throw_error(msg)
         elif not pyamur.OFFLINE and self.balance() < amount + txFee:
-            msg = 'Insufficient Waves balance'
+            msg = 'Insufficient Amur balance'
             logging.error(msg)
             pyamur.throw_error(msg)
         else:
@@ -817,7 +817,7 @@ class Address(object):
             logging.error(msg)
             pyamur.throw_error(msg)
         elif not pyamur.OFFLINE and self.balance() < txFee:
-            msg = 'Insufficient Waves balance'
+            msg = 'Insufficient Amur balance'
             logging.error(msg)
             pyamur.throw_error(msg)
         else:
